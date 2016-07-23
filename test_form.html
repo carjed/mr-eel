@@ -1,0 +1,24 @@
+<html>
+<head><title>Submit form</title>
+</head>
+<body>
+
+<form action="/cgi/mr_eel_cgi.pl" method="POST">
+
+K-mer:
+<select name="adj">
+<option></option>
+<option value="7">7-mers</option>
+<option value="5">5-mers</option>
+</select><br>
+
+
+<input type="checkbox" name="scale" value="Yes"> Scale Rates?<br>
+
+Enter a file to upload: <input type="file" name="input"><br>
+<input type="submit" name="button" value="Upload File">
+
+</form>
+
+</body>
+</html>
