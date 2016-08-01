@@ -1,9 +1,9 @@
 #
-# This is the server logic of a Shiny web application. You can run the 
+# This is the server logic of a Shiny web application. You can run the
 # application by clicking 'Run App' above.
 #
 # Find out more about building applications with Shiny here:
-# 
+#
 #    http://shiny.rstudio.com/
 #
 
@@ -12,25 +12,45 @@ library(ggplot2)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-  
-  shinyjs::onclick("toggleDoc",
-                   shinyjs::toggle(id = "doc", anim = TRUE))
-  
-  output$distPlot <- renderPlot({
-    
-    # generate bins based on input$bins from ui.R
-    x    <- faithful[, 2] 
-    bins <- seq(min(x), max(x), length.out = input$bins + 1)
-    
-    # draw the histogram with the specified number of bins
-    hist(x, breaks = bins, col = 'darkgray', border = 'white')
-    
+
+  outdat <- reactive({
+    req(input$file1)
+    inFile <- input$file1
+    processcmd <- paste0("perl /var/www/jedidiahcarlson.com/cgi/mr-eel.pl --in ", inFile$datapath, " --adj ", adj)
+    out <- read.table(pipe(processcmd), header=F, stringsAsFactors=F)
+    return(out)
   })
   
+  # data <- reactive({
+  #   req(input$file1)
+  # 
+  #   df <- read.table(inFile$datapath, sep="\t", header=F, stringsAsFactors=F)
+  #   
+  #   return(df)
+  # })
+  # shinyjs::onclick("toggleDoc",
+  #   shinyjs::toggle(id = "doc", anim = TRUE))
+
+  # testout <- reactive({
+  #   input$scale
+  # })
+  output$text <- renderText({
+    # text <- testout()
+    input$seq
+  })
+  # observeEvent(input$scale, {
+  # cat(input$scale, "\n")
+  #   if(input$scale>0){
+  #     shinyjs::toggle(id="scibox")
+  #   }
+  # })
+  
+
+
   output$muPlot <- renderPlot({
-    data <- read.table("test.txt", header=F, stringsAsFactors=F)
-    ggplot(data, aes(x=V5))+
+    plotdf <- outdat()
+    ggplot(plotdf, aes(x=V5))+
       geom_histogram()
   })
-  
+
 })
