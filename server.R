@@ -16,6 +16,7 @@ setwd("/var/www/jedidiahcarlson.com")
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
 
+  observeEvent(input$submit {
   outdat <- reactive({
     req(input$file1)
     inFile <- input$file1
@@ -25,6 +26,7 @@ shinyServer(function(input, output, session) {
     out <- read.table(pipe(processcmd), header=F, stringsAsFactors=F)
     # system(processcmd)
     return(out)
+  })
   })
   
   # data <- reactive({

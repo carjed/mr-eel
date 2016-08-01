@@ -26,13 +26,13 @@ shinyUI(fluidPage(
     sidebarPanel(
       fileInput('file1', 'Choose file'),
       tags$hr(),
-      selectInput("adj", label="test", choices=list("7-mers"=3, "5-mers"=2), selected=3),
+      selectInput("adj", label="Motif length", choices=list("7-mers"=3, "5-mers"=2), selected=3),
       checkboxInput('seq', 'Include sequence motif?', FALSE),
       
       # textInputRow(inputId="scale", label="Scale rates to:", value = 0),
       div(id="scaling", "Scale rates to:", textInputRow(inputId="scale", label="", value = 0), "x10^-8"),
       shinyjs::hidden(div(id="scibox", checkboxInput('sci', 'Output in sci notation?', FALSE))),
-      submitButton("Submit")
+      actionButton("submit", "Submit")
     ),
 
     mainPanel(
