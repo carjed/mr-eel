@@ -54,6 +54,13 @@ shinyServer(function(input, output, session) {
     lengthMenu = list(c(5, 15, 25), c('5', '15', '25')),
     pageLength = 5
   ), server=TRUE)
+  
+  output$downloadData <- downloadHandler(
+    filename = "data_full.csv",
+    content = function(file) {
+      write.table(output$output, file, col.names=F, row.names=F, sep="\t", quote=F)
+    }
+  )
 
   output$muPlot <- renderPlot({
     plotdf <- outdat()
