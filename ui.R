@@ -44,7 +44,7 @@ shinyUI(fluidPage(
         tabPanel("Distribution", plotOutput("muPlot")),
         tabPanel("View output",
           # bsCollapse(id="browse", open=NULL,
-          bsCollapsePanel("Browse Motifs",
+          bsCollapsePanel("Browse Motifs", open=TRUE,
               DT::dataTableOutput("output")
             ),
           downloadButton('downloadData', 'Download Full Data')

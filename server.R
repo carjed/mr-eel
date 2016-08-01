@@ -20,13 +20,23 @@ setwd("/var/www/jedidiahcarlson.com")
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
 
-  outdat<-eventReactive(input$submit, {
-  # outdat <- reactive({
+  infile <- reactive({
     req(input$file1)
     inFile <- input$file1
-    filepath<- inFile$datapath
+    filepath <- inFile$datapath
+    dat <- read.table(filepath, header=F, stringsAsFactors=F)
+    out <- c(filepath, dat)
+    return(out)
+  })
+  
+  outdat<-eventReactive(input$submit, {
+  # outdat <- reactive({
+    # req(input$file1)
+    # inFile <- input$file1
+    # filepath<- inFile$datapath
+    inpath <- infile$filepath
     adj <- input$adj
-    processcmd <- paste0("perl cgi/mr_eel.pl --in ", filepath, " --adj ", adj)
+    processcmd <- paste0("perl cgi/mr_eel.pl --in ", inpath, " --adj ", adj)
     out <- read.table(pipe(processcmd), header=F, stringsAsFactors=F)
     # system(processcmd)
     return(out)
@@ -46,9 +56,9 @@ shinyServer(function(input, output, session) {
   # testout <- reactive({
   #   input$scale
   # })
-  output$text <- renderText({
-    outdat()
-  })
+  # output$text <- renderText({
+  #   outdat()
+  # })
   
   output$output <- DT::renderDataTable(outdat(), options = list(
     lengthMenu = list(c(5, 15, 25), c('5', '15', '25')),
