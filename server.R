@@ -19,8 +19,9 @@ shinyServer(function(input, output) {
     req(input$file1)
     inFile <- input$file1
     processcmd <- paste0("perl ./mr_eel.pl --in ", inFile$datapath, " --adj ", adj)
-    out <- read.table(pipe(processcmd), header=F, stringsAsFactors=F)
-    return(out)
+    # out <- read.table(pipe(processcmd), header=F, stringsAsFactors=F)
+    system(processcmd)
+    return(processcmd)
   })
   
   # data <- reactive({
@@ -37,17 +38,8 @@ shinyServer(function(input, output) {
   #   input$scale
   # })
   output$text <- renderText({
-    # text <- testout()
-    input$seq
+    outdat()
   })
-  # observeEvent(input$scale, {
-  # cat(input$scale, "\n")
-  #   if(input$scale>0){
-  #     shinyjs::toggle(id="scibox")
-  #   }
-  # })
-  
-
 
   output$muPlot <- renderPlot({
     plotdf <- outdat()
