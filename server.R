@@ -18,7 +18,8 @@ shinyServer(function(input, output) {
   outdat <- reactive({
     req(input$file1)
     inFile <- input$file1
-    processcmd <- paste0("perl ./mr_eel.pl --in ", inFile$datapath, " --adj ", adj)
+    filepath<- inFile$datapath
+    processcmd <- paste0("perl ./mr_eel.pl --in ", filepath, " --adj ", adj)
     # out <- read.table(pipe(processcmd), header=F, stringsAsFactors=F)
     # system(processcmd)
     return(processcmd)
