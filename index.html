@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>
+      Mr. Eel: Mutation Rate Annotation Utility • Jedidiah Carlson
+    </title>
+    
+    
+    
+    	<!-- Twitter Cards -->
+	<meta name="twitter:title" content="Mr. Eel: Mutation Rate Annotation Utility">
+	
+	<meta name="twitter:site" content="@jedmsp">
+	<meta name="twitter:creator" content="@jedmsp">
+	
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:image" content="/images/">
+	
+	<!-- Open Graph -->
+	<meta property="og:locale" content="en">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="Mr. Eel: Mutation Rate Annotation Utility">
+	
+	<meta property="og:url" content="/mr-eel/">
+	<meta property="og:site_name" content="Jedidiah Carlson">
+
+    <link rel="canonical" href="/mr-eel/">
+
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Jedidiah Carlson Atom Feed">
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cleartype" content="on">
+
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- HTML5 Shiv and Media Query Support for IE -->
+    <!--[if lt IE 9]>
+      <script src="/js/vendor/html5shiv.min.js"></script>
+      <script src="/js/vendor/respond.min.js"></script>
+    <![endif]-->
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42063026-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </head>
+
+  <body id="js-body">
+    <!--[if lt IE 9]><div class="upgrade notice-warning"><strong>Your browser is quite old!</strong> Why not <a href="http://whatbrowser.org/">upgrade to a newer one</a> to better enjoy this site?</div><![endif]-->
+
+    <header id="masthead">
+  <div class="inner-wrap">
+    <a href="/" class="site-title">Jedidiah Carlson</a>
+    <nav role="navigation" class="menu top-menu">
+        <ul class="menu-item">
+	<li class="home">
+		<a href="/">Jedidiah Carlson</a>
+	</li>
+	
+    
+    <li><a href="/about/" >About</a></li>
+  
+    
+    <li><a href="/cv/" >CV</a></li>
+  
+    
+    <li><a href="/notes/" >Lab Notebook</a></li>
+  
+    
+    <li><a href="/shiny/mutif-browser/" >Mutation Browser</a></li>
+  
+    
+    <li><a href="/mr-eel/" >Mr. Eel</a></li>
+  
+</ul>
+
+    </nav>
+  </div><!-- /.inner-wrap -->
+</header><!-- /.masthead -->
+
+    <nav role="navigation" id="js-menu" class="sliding-menu-content">
+  <h5>
+    Jedidiah Carlson <span>Directory</span>
+  </h5>
+  <ul class="menu-item">
+    <li>
+      <a href="/about/">
+        
+        <div class="title">About</div>
+        
+      </a>
+    </li><li>
+      <a href="/cv/">
+        <img src="/images/teaser.jpg" alt="teaser" class="teaser">
+        <div class="title">CV</div>
+        <p class="excerpt">Academic activities and such</p>
+      </a>
+    </li><li>
+      <a href="/notes/">
+        <img src="/images/teaser.jpg" alt="teaser" class="teaser">
+        <div class="title">Lab Notebook</div>
+        <p class="excerpt">Collection of weekly-ish updates and code snippets I find useful</p>
+      </a>
+    </li><li>
+      <a href="/shiny/mutif-browser/">
+        <img src="/images/mutif_img.png" alt="teaser" class="teaser">
+        <div class="title">Mutation Browser</div>
+        <p class="excerpt">Interactive plots for exploring mutation rate heterogeneity</p>
+      </a>
+    </li><li>
+      <a href="/mr-eel/">
+        <img src="/images/teaser.jpg" alt="teaser" class="teaser">
+        <div class="title">Mr. Eel</div>
+        <p class="excerpt">Annotate genetic variants with estimated mutation rate</p>
+      </a>
+    </li>
+  </ul>
+</nav>
+<button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" role="button" aria-label="Toggle Navigation">
+  <span class="nav-lines"></span>
+</button>
+
+<div id="js-menu-screen" class="menu-screen"></div>
+
+
+    <div id="page-wrapper">
+      <div id="main" role="main">
+	<div class="wrap">
+		
+		<div class="page-title">
+			<h1>Mr. Eel: Mutation Rate Annotation Utility</h1>
+			
+		</div>
+		<div class="archive-wrap">
+			<div class="page-content">
+				<!-- <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css"> -->
+<!-- <link rel="stylesheet" href="//www.lpology.com/assets/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="//www.lpology.com/assets/css/main.css" />
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<p><!-- load jquery via CDN -->
+<script src="//www.lpology.com/code/ajaxuploader/SimpleAjaxUploader.js"></script></p>
+
+<div class="container">
+  <div class="row">
+
+      <div class="col-md-8">
+          <div class="content-box">
+            <!-- <input type="button" id="upload-btn" class="btn btn-primary btn-large clearfix" value="Choose file"> -->
+            <span style="padding-left:5px;vertical-align:left;"></span>
+
+            <p><label>Select K-mer:
+              <select name="adj" id="adj" style="display:inline-block;">
+              <option></option>
+              <option value="3">7-mers</option>
+              <option value="2">5-mers</option>
+              </select>
+            </label></p>
+
+            <p><label>Include sequence motif? <input type="checkbox" name="seq" id="seq" value="Yes" style="display:inline-block;" /></label></p>
+
+            <p><div style="vertical-align:top;">
+              <label> Scale rates to: <input type="text" name="scale_form" id="scale_form" value="0" style="display:inline-block; width: 40px;" />x 10<sup>-8</sup> (keep value as 0 to return relative rates)</label>
+
+              <label style="display:inline-block;">Output in scientific notation? <input type="checkbox" name="sci" id="sci" value="Yes" /></label>
+            </div></p>
+
+            <!-- <input type="button" id="upload2-btn" class="btn btn-primary btn-large clearfix" value="Upload file"> -->
+
+            <input type="button" id="upload-btn" class="btn btn-primary btn-large clearfix" value="Upload file and begin processing" />
+
+            <div id="errormsg" class="clearfix redtext" style="padding-top: 10px;"></div>
+
+            <div id="pic-progress-wrap" class="progress-wrap" style="margin-top:10px;margin-bottom:10px;"></div>
+
+            <div id="picbox" class="clear" style="padding-top:0px;padding-bottom:10px;"></div>
+
+            <div class="clear-line" style="margin-top:10px;"></div>
+          </div>
+      </div>
+
+  </div>
+</div>
+
+<script>
+  $(function() {
+
+    var btn = document.getElementById('upload-btn'),
+        wrap = document.getElementById('pic-progress-wrap'),
+        picBox = document.getElementById('picbox'),
+        errBox = document.getElementById('errormsg'),
+        kmer = document.getElementById('adj'),
+        motif = document.getElementById('seq'),
+        scaler = document.getElementById('scale_form'),
+        sci_flag = document.getElementById('sci');
+
+    var uploader = new ss.SimpleUpload({
+          button: 'upload-btn', // HTML element used as upload button
+          url: '/cgi/upload.php', // URL of server-side upload handler
+          name: 'uploadfile', // Parameter name of the uploaded file
+          sessionProgressUrl: '/cgi/sessionProgress.php',
+          allowedExtensions: ['txt','vcf','bed'],
+          responseType: 'text',
+          maxsize: 4096,
+          onSubmit: function(filename, ext) {
+            var prog = document.createElement('div'),
+                outer = document.createElement('div'),
+                bar = document.createElement('div'),
+                size = document.createElement('div'),
+                adj = kmer.value,
+                seq = motif.value,
+                mu = scaler.value,
+                sci = sci_flag.value,
+                self = this;
+
+            self.setData({
+              adj: adj,
+              seq: seq,
+              mu: mu,
+              sci: sci,
+            });
+
+            prog.className = 'prog';
+            size.className = 'size';
+            outer.className = 'progress progress-striped';
+            bar.className = 'progress-bar progress-bar-success';
+
+            outer.appendChild(bar);
+            prog.appendChild(size);
+            prog.appendChild(outer);
+            wrap.appendChild(prog); // 'wrap' is an element on the page
+
+            self.setProgressBar(bar);
+            self.setProgressContainer(prog);
+            self.setFileSizeBox(size);
+            // self.setForm(form);
+
+            errBox.innerHTML = 'Your file is being processed on the server and will download automatically. This may take up to 15 minutes.';
+            // errBox.innerHTML = adj;
+            btn.value = 'Please wait';
+            // btn.value = self.data.mu;
+          },
+
+        onSizeError: function() {
+              errBox.innerHTML = 'Files may not exceed 4Mb.';
+        },
+        onExtError: function() {
+            errBox.innerHTML = 'Invalid file type. Please upload a file with a \'.txt\' extension.';
+          },
+        onComplete: function(filename, response) {
+          if (!response) {
+              alert(filename + 'upload failed');
+              return false;
+          }
+          errBox.innerHTML = response;
+          btn.value = 'Choose another file';
+          errBox.innerHTML = 'Success! Please check your download folder for the processed file';
+          document.location.href = 'http://www.jedidiahcarlson.com/cgi/download.php?dir=tmp&file='+response;
+        }
+    });
+  });
+</script>
+
+<h2 id="overview">Overview</h2>
+<p><strong>Please note that this web app is in beta, and is presently hosted on an Amazon EC2 micro instance with limited CPU and RAM. As such, problems may arise if multiple sessions are running concurrently. We apologize for any inconvenience.</strong></p>
+
+<p>Mr. Eel is an annotation utility for [M]utation [R]ate [E]stimation using [E]xtremely rare variants and [L]ocal sequence context. It is designed to quickly annotate single-nucleotide variants with their estimated mutation rate, using the method described in <a href="#">citation here</a>.</p>
+
+<h3 id="formatting-input">Formatting Input</h3>
+<p>Files must be uploaded as a tab-delimited text file, starting with the following 4 columns:</p>
+
+<p>CHR    POS    REF    ALT …</p>
+
+<ul>
+  <li>Other columns may be included in the input file, and will be preserved in the output. Input files can be processed with or without column headings (in the current version, output will not contain column headings; this will be resolved in a future release).</li>
+  <li>Only autosomal positions will be processed; positions on sex chromosomes, mitochondrial DNA, or unplaced contigs will be discarded. Input data does not need to be sorted, but performance will be <strong>much</strong> faster using sorted input.</li>
+  <li>An example input file is available <a href="http://www.jedidiahcarlson.com/assets/test_sites.txt">here</a></li>
+  <li>Sites should be mapped to build 37 (hg19) of the human reference genome. Specifically, this utility uses the 1000 Genomes assembly file, available at <a href="ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/">human_g1k_v37.fasta</a>. Support for other builds will be implemented in a future release.</li>
+  <li>VCF files are not currently supported, but can be quickly converted to the desired format using <a href="https://samtools.github.io/bcftools/bcftools.html">bcftools</a>:</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>bcftools query -f '%CHROM\t%POS\t%REF\t%ALT\n' in.vcf &gt; positions.txt"
+</code></pre>
+</div>
+
+<h3 id="output">Output</h3>
+<p>The processed output will be identical to the input, with the addition of a column containing the estimated relative mutation rate for each site:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>767658</td>
+      <td>G</td>
+      <td>T</td>
+      <td>0.00338503160303719</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>771925</td>
+      <td>G</td>
+      <td>A</td>
+      <td>0.101687967205209</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>871509</td>
+      <td>G</td>
+      <td>C</td>
+      <td>0.00344711848109074</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>904483</td>
+      <td>G</td>
+      <td>A</td>
+      <td>0.00584652048509416</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1022283</td>
+      <td>C</td>
+      <td>G</td>
+      <td>0.00367433651265097</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1037411</td>
+      <td>A</td>
+      <td>G</td>
+      <td>0.00627790428352624</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1118412</td>
+      <td>C</td>
+      <td>T</td>
+      <td>0.078936050550832</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>If the <strong>Include sequence motif?</strong> option is selected, an additional column containing the sequence motif (and its reverse complement) will also be included:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>767658</td>
+      <td>G</td>
+      <td>T</td>
+      <td>AGCCTTT(AAAGGCT)</td>
+      <td>0.00338503160303719</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>771925</td>
+      <td>G</td>
+      <td>A</td>
+      <td>AGCCGGT(ACCGGCT)</td>
+      <td>0.101687967205209</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>871509</td>
+      <td>G</td>
+      <td>C</td>
+      <td>GCCCCGG(CCGGGGC)</td>
+      <td>0.00344711848109074</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>904483</td>
+      <td>G</td>
+      <td>A</td>
+      <td>GTTCTAC(GTAGAAC)</td>
+      <td>0.00584652048509416</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1022283</td>
+      <td>C</td>
+      <td>G</td>
+      <td>CATCAGG(CCTGATG)</td>
+      <td>0.00367433651265097</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1037411</td>
+      <td>A</td>
+      <td>G</td>
+      <td>ACCACTG(CAGTGGT)</td>
+      <td>0.00627790428352624</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1118412</td>
+      <td>C</td>
+      <td>T</td>
+      <td>AGGCGCG(CGCGCCT)</td>
+      <td>0.078936050550832</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>If a value is entered in the <strong>“Scale rates to:”</strong> field, relative mutation rates will be scaled to a per-site, per-generation mutation rate, calibrated to the value entered (x 10<sup>-8</sup>). If using this option, we recommend a value between 1.0 and 1.5, corresponding to the genome-wide average mutation rates reported by recent studies. If the default (0) is kept, the raw relative mutation rates will be returned. When using the scaling feature, by default Mr. Eel will return only the base of each rate (e.g., 1.25, not 1.25e-08). To output rates in scientific notation, simply check the <strong>Output in scientific notation?</strong> box.</p>
+
+<h3 id="performance">Performance</h3>
+<p>Mr. Eel takes anywhere from 30 seconds to 15 minutes to run. Since the script reads each chromosome into memory sequentially, speed is primarily determined by the number of unique chromosomes in the input, not the total number of positions (e.g., 10,000 variants on a single chromosome will run faster than 100 variants across all 22 chromosomes). To manage bandwidth, input file size is restricted to 4Mb. If your data exceeds 4Mb, please download the <a href="/cgi/download.php?dir=assets&amp;file=mr_eel.pl">command line annotation script</a>.</p>
+
+<h3 id="command-line-usage">Command line usage</h3>
+<p><strong>The command line script is available to <a href="/cgi/download.php?dir=assets&amp;file=mr_eel.pl">download</a>, along with the <a href="/cgi/download.php?dir=assets&amp;file=ERV_7bp_rates.txt">7-mer rate table</a>; the <code class="highlighter-rouge">download_ref.pl</code> script described below is under construction. When using the command line utility, you <em>must</em> specify the <code class="highlighter-rouge">--rates</code> and <code class="highlighter-rouge">--ref</code> options.</strong>
+Usage instructions for the command line utility can be viewed with <code class="highlighter-rouge">perl mr_eel.pl --help</code>.
+Note that the download <strong>does not</strong> contain a reference genome. A helper script, <code class="highlighter-rouge">download_ref.pl</code> is included to download the human_g1k_v37.fasta file used by the web app. If you already have a reference genome on your local machine, you may specify the location with the <code class="highlighter-rouge">--ref /path/to/reference.fasta</code> argument.</p>
+
+<h3 id="help">Help</h3>
+<p>Feedback, feature requests, and bug reports are welcome! Please refer to the <a href="https://github.com/carjed/jedidiahcarlson.com/issues">Github repository</a> to review open issues or raise a new one.</p>
+
+<h3 id="planned-features">Planned Features</h3>
+<p>New features will be implemented in the command line script prior to being integrated into the web app. Planned features include:</p>
+
+<ul>
+  <li>Support for VCF and BED files</li>
+  <li>Improved validation and error handling</li>
+  <li>Optimize memory usage</li>
+  <li>Enable additional parameters to be specified on web app (e.g., print sequence, select different K-mer sizes)</li>
+  <li>Support for secure uploads</li>
+  <li>Plotting output with R Shiny</li>
+  <li>and more!</li>
+</ul>
+
+<p>Please see the <a href="#">development branch</a> (currently pending) of the Mr. Eel repository for the latest experimental release.</p>
+
+<h3 id="privacy-policy">Privacy Policy</h3>
+<p>We do not require any personally identifiable information in order to use this application. Any data uploaded to our server will be deleted immediately after it is processed. If you have sensitive data, we recommend you download the command line utility, as we cannot guarantee a secure connection to our server at this time.</p>
+
+			</div><!-- /.page-content -->
+		</div class="archive-wrap"><!-- /.archive-wrap -->
+	</div><!-- /.wrap -->
+</div><!-- /#main -->
+
+      <footer role="contentinfo" id="site-footer">
+	<nav role="navigation" class="menu bottom-menu">
+		<ul class="menu-item">
+		<div class="social-icons">
+  <a class="social-btn" href="mailto:jedidiah@umich.edu" target="_blank" rel="noopener noreferrer"><i class="fa fa-fw fa-envelope"></i></a>
+  
+  <a class="social-btn" href="http://twitter.com/jedmsp" target="_blank" rel="noopener noreferrer"><i class="fa fa-fw fa-twitter"></i></a>
+  
+  
+  <a class="social-btn" href="http://linkedin.com/in/jedidiah" target="_blank" rel="noopener noreferrer"><i class="fa fa-fw fa-linkedin"></i></a>
+  
+  
+  
+  <a class="social-btn" href="http://github.com/carjed" target="_blank" rel="noopener noreferrer"><i class="fa fa-fw fa-github"></i></a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+		
+      
+			<li><a href="" ></a></li>
+		
+		</ul>
+	</nav><!-- /.bottom-menu -->
+	<p class="copyright">&#169; 2016 <a href="">Jedidiah Carlson</a> powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> + <a href="http://mmistakes.github.io/skinny-bones-jekyll/" rel="nofollow">Skinny Bones</a>.</p>
+</footer>
+
+    </div>
+
+    <script src="/js/vendor/jquery-1.9.1.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/search.min.js" type="text/javascript" charset="utf-8"></script>
+
+  </body>
+
+</html>

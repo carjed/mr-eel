@@ -1,0 +1,126 @@
+<!-- <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css"> -->
+<!-- <link rel="stylesheet" href="//www.lpology.com/assets/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="//www.lpology.com/assets/css/main.css">
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> <!-- load jquery via CDN -->
+<script src="//www.lpology.com/code/ajaxuploader/SimpleAjaxUploader.js"></script>
+
+<div class="container">
+  <div class="row">
+
+      <div class="col-md-8">
+          <div class="content-box">
+            <!-- <input type="button" id="upload-btn" class="btn btn-primary btn-large clearfix" value="Choose file"> -->
+            <span style="padding-left:5px;vertical-align:left;"></span>
+
+            <p><label>Select K-mer:
+              <select name="adj" id="adj" style="display:inline-block;">
+              <option></option>
+              <option value="3">7-mers</option>
+              <option value="2">5-mers</option>
+              </select>
+            </label></p>
+
+            <p><label>Include sequence motif? <input type="checkbox" name="seq" id="seq" value="Yes" style="display:inline-block;"/></label></p>
+
+            <p><div style="vertical-align:top;">
+              <label> Scale rates to: <input type="text" name="scale_form" id="scale_form" value="0" style="display:inline-block; width: 40px;">x 10<sup>-8</sup> (keep value as 0 to return relative rates)</label>
+
+              <label style="display:inline-block;">Output in scientific notation? <input type="checkbox" name="sci" id="sci" value="Yes" /></label>
+            </div></p>
+
+            <!-- <input type="button" id="upload2-btn" class="btn btn-primary btn-large clearfix" value="Upload file"> -->
+
+            <input type="button" id="upload-btn" class="btn btn-primary btn-large clearfix" value="Upload file and begin processing">
+
+            <div id="errormsg" class="clearfix redtext" style="padding-top: 10px;"></div>
+
+            <div id="pic-progress-wrap" class="progress-wrap" style="margin-top:10px;margin-bottom:10px;"></div>
+
+            <div id="picbox" class="clear" style="padding-top:0px;padding-bottom:10px;"></div>
+
+            <div class="clear-line" style="margin-top:10px;"></div>
+          </div>
+      </div>
+
+  </div>
+</div>
+
+<script>
+  $(function() {
+
+    var btn = document.getElementById('upload-btn'),
+        wrap = document.getElementById('pic-progress-wrap'),
+        picBox = document.getElementById('picbox'),
+        errBox = document.getElementById('errormsg'),
+        kmer = document.getElementById('adj'),
+        motif = document.getElementById('seq'),
+        scaler = document.getElementById('scale_form'),
+        sci_flag = document.getElementById('sci');
+
+    var uploader = new ss.SimpleUpload({
+          button: 'upload-btn', // HTML element used as upload button
+          url: '/cgi/upload.php', // URL of server-side upload handler
+          name: 'uploadfile', // Parameter name of the uploaded file
+          sessionProgressUrl: '/cgi/sessionProgress.php',
+          allowedExtensions: ['txt','vcf','bed'],
+          responseType: 'text',
+          maxsize: 4096,
+          onSubmit: function(filename, ext) {
+            var prog = document.createElement('div'),
+                outer = document.createElement('div'),
+                bar = document.createElement('div'),
+                size = document.createElement('div'),
+                adj = kmer.value,
+                seq = motif.value,
+                mu = scaler.value,
+                sci = sci_flag.value,
+                self = this;
+
+            self.setData({
+              adj: adj,
+              seq: seq,
+              mu: mu,
+              sci: sci,
+            });
+
+            prog.className = 'prog';
+            size.className = 'size';
+            outer.className = 'progress progress-striped';
+            bar.className = 'progress-bar progress-bar-success';
+
+            outer.appendChild(bar);
+            prog.appendChild(size);
+            prog.appendChild(outer);
+            wrap.appendChild(prog); // 'wrap' is an element on the page
+
+            self.setProgressBar(bar);
+            self.setProgressContainer(prog);
+            self.setFileSizeBox(size);
+            // self.setForm(form);
+
+            errBox.innerHTML = 'Your file is being processed on the server and will download automatically. This may take up to 15 minutes.';
+            // errBox.innerHTML = adj;
+            btn.value = 'Please wait';
+            // btn.value = self.data.mu;
+          },
+
+        onSizeError: function() {
+              errBox.innerHTML = 'Files may not exceed 4Mb.';
+        },
+        onExtError: function() {
+            errBox.innerHTML = 'Invalid file type. Please upload a file with a \'.txt\' extension.';
+          },
+        onComplete: function(filename, response) {
+          if (!response) {
+              alert(filename + 'upload failed');
+              return false;
+          }
+          errBox.innerHTML = response;
+          btn.value = 'Choose another file';
+          errBox.innerHTML = 'Success! Please check your download folder for the processed file';
+          document.location.href = 'http://www.jedidiahcarlson.com/cgi/download.php?dir=tmp&file='+response;
+        }
+    });
+  });
+</script>
