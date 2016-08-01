@@ -37,7 +37,7 @@ shinyUI(fluidPage(
 
     mainPanel(
       tabsetPanel(
-        tabPanel("Distribution", plotOutput("muPlot"))
+        tabPanel("Distribution", plotOutput("muPlot")),
         tabPanel("Distribution", textOutput("text"))
       )
     )
