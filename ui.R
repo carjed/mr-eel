@@ -26,7 +26,7 @@ shinyUI(fluidPage(
     sidebarPanel(
       fileInput('file1', 'Choose file'),
       tags$hr(),
-      selectInput("select", label="test", choices=list("7-mers"=3, "5-mers"=2), selected=3),
+      selectInput("adj", label="test", choices=list("7-mers"=3, "5-mers"=2), selected=3),
       checkboxInput('seq', 'Include sequence motif?', FALSE),
       
       # textInputRow(inputId="scale", label="Scale rates to:", value = 0),
