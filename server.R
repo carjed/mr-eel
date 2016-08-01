@@ -10,7 +10,11 @@
 options(shiny.maxRequestSize = 9*1024^2)
 
 library(shiny)
+library(shinyBS)
 library(ggplot2)
+library(Cairo)   # For nicer ggplot2 output when deployed on Linux
+library(DT)
+library(RColorBrewer)
 setwd("/var/www/jedidiahcarlson.com")
 
 # Define server logic required to draw a histogram
@@ -45,6 +49,11 @@ shinyServer(function(input, output, session) {
   output$text <- renderText({
     outdat()
   })
+  
+  output$output <- DT::renderDataTable(outdat(), options = list(
+    lengthMenu = list(c(5, 15, 25), c('5', '15', '25')),
+    pageLength = 5
+  ), server=TRUE)
 
   output$muPlot <- renderPlot({
     plotdf <- outdat()
