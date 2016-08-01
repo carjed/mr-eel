@@ -34,7 +34,7 @@ shinyServer(function(input, output, session) {
     # req(input$file1)
     # inFile <- input$file1
     # filepath<- inFile$datapath
-    inpath <- infile$filepath
+    inpath <- infile()$filepath
     adj <- input$adj
     processcmd <- paste0("perl cgi/mr_eel.pl --in ", inpath, " --adj ", adj)
     out <- read.table(pipe(processcmd), header=F, stringsAsFactors=F)
