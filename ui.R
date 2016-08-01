@@ -31,8 +31,8 @@ shinyUI(fluidPage(
       
       # textInputRow(inputId="scale", label="Scale rates to:", value = 0),
       div(id="scaling", "Scale rates to:", textInputRow(inputId="scale", label="", value = 0), "x10^-8"),
-      shinyjs::hidden(div(id="scibox", checkboxInput('sci', 'Output in sci notation?', FALSE)))
-
+      shinyjs::hidden(div(id="scibox", checkboxInput('sci', 'Output in sci notation?', FALSE))),
+      submitButton("Submit")
     ),
 
     mainPanel(
