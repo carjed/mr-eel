@@ -11,6 +11,7 @@ options(shiny.maxRequestSize = 9*1024^2)
 
 library(shiny)
 library(ggplot2)
+setwd("/var/www/jedidiahcarlson.com")
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
@@ -20,7 +21,7 @@ shinyServer(function(input, output, session) {
     inFile <- input$file1
     filepath<- inFile$datapath
     adj <- input$adj
-    processcmd <- paste0("perl ./mr_eel.pl --in ", filepath, " --adj ", adj)
+    processcmd <- paste0("perl cgi/mr_eel.pl --in ", filepath, " --adj ", adj)
     out <- read.table(pipe(processcmd), header=F, stringsAsFactors=F)
     # system(processcmd)
     return(out)
