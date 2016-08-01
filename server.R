@@ -19,6 +19,7 @@ shinyServer(function(input, output, session) {
     req(input$file1)
     inFile <- input$file1
     filepath<- inFile$datapath
+    adj <- input$adj
     processcmd <- paste0("perl ./mr_eel.pl --in ", filepath, " --adj ", adj)
     # out <- read.table(pipe(processcmd), header=F, stringsAsFactors=F)
     # system(processcmd)
