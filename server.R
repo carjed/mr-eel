@@ -68,8 +68,9 @@ shinyServer(function(input, output, session) {
   
   output$downloadData <- downloadHandler(
     filename = "data_full.csv",
+    data = output$outdat()
     content = function(file) {
-      write.table(output$output, file, col.names=F, row.names=F, sep="\t", quote=F)
+      write.table(data, file, col.names=F, row.names=F, sep="\t", quote=F)
     }
   )
 
