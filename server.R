@@ -25,12 +25,9 @@ shinyServer(function(input, output, session) {
     req(input$file1)
     inFile <- input$file1
     filepath <- inFile$datapath
-    dat <- read.table(filepath, header=F, stringsAsFactors=F)
+    dat <- read.table(filepath, header=T, stringsAsFactors=F)
     out <- c(filepath, dat)
     names(out) <- c("filepath", "dat")
-    # createAlert(session, "alert", "exampleAlert", title = "Oops",
-    #             content = filepath, append = FALSE)
-    
     return(out)
   })
 
@@ -61,7 +58,7 @@ shinyServer(function(input, output, session) {
       processcmd <- paste0(processcmd, " --sci")
     }
 
-    out <- read.table(pipe(processcmd), header=T, stringsAsFactors=F)
+    out <- read.table(pipe(processcmd), header=F, stringsAsFactors=F)
 
     # out$CAT <- paste(out$V3, out$V4, sep="")
     #
@@ -78,23 +75,6 @@ shinyServer(function(input, output, session) {
     return(out)
   # })
   })
-
-  # data <- reactive({
-  #   req(input$file1)
-  #
-  #   df <- read.table(inFile$datapath, sep="\t", header=F, stringsAsFactors=F)
-  #
-  #   return(df)
-  # })
-  # shinyjs::onclick("toggleDoc",
-  #   shinyjs::toggle(id = "doc", anim = TRUE))
-
-  # testout <- reactive({
-  #   input$scale
-  # })
-  # output$text <- renderText({
-  #   outdat()
-  # })
 
   output$output <- DT::renderDataTable(outdat(), options = list(
     lengthMenu = list(c(5, 15, 25), c('5', '15', '25')),
