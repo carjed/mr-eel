@@ -45,7 +45,7 @@ shinyServer(function(input, output, session) {
     # filepath<- inFile$datapath
     inpath <- infile()$filepath
     adj <- input$adj
-    processcmd <- paste0("perl ./mr_eel.pl --in ", inpath, " --adj ", adj)
+    processcmd <- paste0("perl mr_eel.pl --in ", inpath, " --adj ", adj)
     if(input$seq){
       processcmd <- paste0(processcmd, " --seq")
     }
