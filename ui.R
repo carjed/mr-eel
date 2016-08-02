@@ -52,7 +52,7 @@ shinyUI(fluidPage(
 
     tabPanel("Documentation",
             #  includeMarkdown("/srv/shiny-server/mr-eel/mr-eel.md")
-            includeHTML("/srv/shiny-server/mr-eel/mr-eel.html")
+            includeHTML("/srv/shiny-server/mr-eel/README.html")
     )
   )
 ))

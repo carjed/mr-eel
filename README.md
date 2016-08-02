@@ -6,7 +6,7 @@ output:
     toc: true
 ---
 
-## Overview
+### Overview
 **Please note that this web app is in beta, and is presently hosted on an Amazon EC2 micro instance with limited CPU and RAM. As such, problems may arise if multiple sessions are running concurrently. We apologize for any inconvenience.**
 
 Mr. Eel is an annotation utility for **M**utation **R**ate **E**stimation using **E**xtremely rare variants and **L**ocal sequence context. It is designed to quickly annotate single-nucleotide variants with their estimated mutation rate, using the method described in [citation pending](#).
@@ -14,9 +14,9 @@ Mr. Eel is an annotation utility for **M**utation **R**ate **E**stimation using 
 ### Formatting Input
 Files must be uploaded as a tab-delimited text file, and **must** start with the following 4 columns:
 
-| CHR | POS    | REF | ALT |    V1    |       V2            |       V3         |
+| CHR | POS    | REF | ALT |    -     |       -             |       -          |
 |-----|--------|-----|-----|----------|---------------------|------------------|
-|  -  | -      | -   | -   |    -     |       -             |       -          |
+| -   | -      | -   | -   |    -     |       -             |       -          |
 
 - Other columns may be included in the input file, and will be preserved in the output.
 - Input files can be processed with or without a column header in the first row. If your input file contains a header, the same column names will carry over to the output. If your input file contains additional columns but no header, arbitrary names will be assigned to these columns in the output.
@@ -34,10 +34,10 @@ The processed output will be identical to the input, with the addition of a colu
 
 | CHR | POS    | REF | ALT | CATEGORY | MU                  | -                |
 |-----|--------|-----|-----|----------|---------------------|------------------|
-| 1   | 767658 | G   | T   | GC_TA    | 0.00338503160303719 |                  |
-| 1   | 771925 | G   | A   | GC_AT    | 0.101687967205209   |                  |
-| 1   | 871509 | G   | C   | GC_CG    | 0.00344711848109074 |                  |
-| 1   | 904483 | G   | A   | GC_AT    | 0.00584652048509416 |                  |
+| 1   | 767658 | G   | T   | GC_TA    | 0.00338503160303719 | -                |
+| 1   | 771925 | G   | A   | GC_AT    | 0.101687967205209   | -                |
+| 1   | 871509 | G   | C   | GC_CG    | 0.00344711848109074 | -                |
+| 1   | 904483 | G   | A   | GC_AT    | 0.00584652048509416 | -                |
 
 If the **Include sequence motif?** option is selected, an additional column containing the sequence motif (and its reverse complement) will also be included:
 
@@ -67,9 +67,8 @@ New features will be implemented in the command line script prior to being integ
 - Support for VCF and BED files
 - Improved validation and error handling
 - Optimize memory usage
-- Enable additional parameters to be specified on web app (e.g., print sequence, select different K-mer sizes)
 - Support for secure uploads
-- Plotting output with R Shiny
+- Additional plots and summary
 - and more!
 
 Please see the [development branch](#) (currently pending) of the Mr. Eel repository for the latest experimental release.
