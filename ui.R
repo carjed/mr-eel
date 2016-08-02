@@ -1,12 +1,3 @@
-#
-# This is the user-interface definition of a Shiny web application. You can
-# run the application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
-
 library(shiny)
 library(shinyBS)
 library(ggplot2)
@@ -44,10 +35,11 @@ shinyUI(fluidPage(
         tabPanel("Distribution", plotOutput("muPlot")),
         tabPanel("View output",
           # bsCollapse(id="browse", open=NULL,
-          bsCollapsePanel("Browse Motifs", open=NULL,
-              DT::dataTableOutput("output")
-            ),
-          downloadButton('downloadData', 'Download Full Data')
+          # bsCollapsePanel("Browse Motifs", open=NULL,
+              DT::dataTableOutput("output"),
+            # ),
+          downloadButton('downloadData', 'Download Full Data'),
+          tabPanel("Help", includeMarkdown("mr-eel.md"))
           # )
         )
       )
