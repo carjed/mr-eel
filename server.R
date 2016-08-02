@@ -39,6 +39,18 @@ shinyServer(function(input, output, session) {
     adj <- input$adj
     processcmd <- paste0("perl cgi/mr_eel.pl --in ", inpath, " --adj ", adj)
     out <- read.table(pipe(processcmd), header=F, stringsAsFactors=F)
+    
+    out$CAT <- paste(out$REF, out$ALT, sep="")
+    
+    # Manually remove bins near chr20 centromere
+    # chr22 <- chr22[ which(chr22$BIN<260 | chr22$BIN>300),]
+    out$Category[out$CAT=="AC" | out$CAT=="TG"] <- "AT_CG"
+    out$Category[out$CAT=="AG" | out$CAT=="TC"] <- "AT_GC"
+    out$Category[out$CAT=="AT" | out$CAT=="TA"] <- "AT_TA"
+    out$Category[out$CAT=="GA" | out$CAT=="CT"] <- "GC_AT"
+    out$Category[out$CAT=="GC" | out$CAT=="CG"] <- "GC_CG"
+    out$Category[out$CAT=="GT" | out$CAT=="CA"] <- "GC_TA"
+    
     # system(processcmd)
     return(out)
   # })
@@ -76,8 +88,12 @@ shinyServer(function(input, output, session) {
 
   output$muPlot <- renderPlot({
     plotdf <- outdat()
-    ggplot(plotdf, aes(x=V5))+
-      geom_histogram()
+    ggplot(plotdf, aes(x=V5, colour=Category, fill=Category))+
+      geom_histogram()+
+      scale_colour_brewer(Palette="Dark2")+
+      scale_fill_brewer(Palette="Dark2")+
+      facet_wrap(~Category, scales="free")+
+      theme_bw()
   })
 
 })

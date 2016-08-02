@@ -25,7 +25,7 @@ shinyUI(fluidPage(
       checkboxInput('seq', 'Include sequence motif?', FALSE),
       
       # textInputRow(inputId="scale", label="Scale rates to:", value = 0),
-      div(id="scaling", "Scale rates to:", textInputRow(inputId="scale", label="", value = 0), HTML(paste("10", tags$sup(-8), sep = ""))),
+      div(id="scaling", "Scale rates to:", textInputRow(inputId="scale", label="", value = 0), HTML(paste("x10", tags$sup(-8), sep = ""))),
       shinyjs::hidden(div(id="scibox", checkboxInput('sci', 'Output in sci notation?', FALSE))),
       actionButton("submit", "Submit")
     ),
