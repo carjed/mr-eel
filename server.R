@@ -58,7 +58,7 @@ shinyServer(function(input, output, session) {
       processcmd <- paste0(processcmd, " --sci")
     }
 
-    out <- read.table(pipe(processcmd), header=F, stringsAsFactors=F)
+    out <- read.table(pipe(processcmd), header=T, stringsAsFactors=F)
 
     # out$CAT <- paste(out$V3, out$V4, sep="")
     #
