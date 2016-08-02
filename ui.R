@@ -32,16 +32,13 @@ shinyUI(fluidPage(
 
     mainPanel(
       tabsetPanel(
-        tabPanel("Distribution", plotOutput("muPlot")),
         tabPanel("View output",
-          # bsCollapse(id="browse", open=NULL,
-          # bsCollapsePanel("Browse Motifs", open=NULL,
               DT::dataTableOutput("output"),
-            # ),
-          downloadButton('downloadData', 'Download Full Data')
-          # )
-        ),
-        tabPanel("Help", includeMarkdown("mr-eel.md"))
+              downloadButton('downloadData', 'Download Full Data')),
+        tabPanel("Plots", 
+                 plotOutput("muPlot")),
+        tabPanel("Help", 
+                 includeMarkdown("/srv/shiny-server/mr-eel/mr-eel.md"))
       )
     )
 
