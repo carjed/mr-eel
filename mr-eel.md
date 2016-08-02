@@ -14,8 +14,9 @@ Mr. Eel is an annotation utility for **M**utation **R**ate **E**stimation using 
 ### Formatting Input
 Files must be uploaded as a tab-delimited text file, and **must** start with the following 4 columns:
 
-| CHR | POS    | REF | ALT |          |                     |                  |
+| CHR | POS    | REF | ALT |    V1    |       V2            |       V3         |
 |-----|--------|-----|-----|----------|---------------------|------------------|
+|  -  | -      | -   | -   |    -     |       -             |       -          |
 
 - Other columns may be included in the input file, and will be preserved in the output.
 - Input files can be processed with or without a column header in the first row. If your input file contains a header, the same column names will carry over to the output. If your input file contains additional columns but no header, arbitrary names will be assigned to these columns in the output.
@@ -31,7 +32,7 @@ bcftools query -f '%CHROM\t%POS\t%REF\t%ALT\n' in.vcf > positions.txt"
 ### Output
 The processed output will be identical to the input, with the addition of a column containing the estimated relative mutation rate for each site:
 
-| CHR | POS    | REF | ALT | CATEGORY | MU                  |                  |
+| CHR | POS    | REF | ALT | CATEGORY | MU                  | -                |
 |-----|--------|-----|-----|----------|---------------------|------------------|
 | 1   | 767658 | G   | T   | GC_TA    | 0.00338503160303719 |                  |
 | 1   | 771925 | G   | A   | GC_AT    | 0.101687967205209   |                  |
