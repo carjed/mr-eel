@@ -32,7 +32,7 @@ shinyUI(fluidPage(
                          " (keep value as 0 to return relative rates)", sep = ""))),
           shinyjs::hidden(div(id="scibox",
                           checkboxInput('sci', 'Output in scientific notation?', FALSE))),
-          actionButton("submit", "Submit")
+          actionButton("submit", "Submit"),
           bsAlert("alert")
         ),
 
