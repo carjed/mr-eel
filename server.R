@@ -25,19 +25,19 @@ shinyServer(function(input, output, session) {
     req(input$file1)
     inFile <- input$file1
     filepath <- inFile$datapath
-    dat <- read.table(filepath, header=F, stringsAsFactors=F)
+    dat <- read.table(filepath, header=T, stringsAsFactors=F)
     out <- c(filepath, dat)
     names(out) <- c("filepath", "dat")
     return(out)
   })
-  
+
   observeEvent(input$scale,{
     if(input$scale>0){
-      shinyjs::show("scibox")    
+      shinyjs::show("scibox")
     }
   })
-  
-  
+
+
   outdat<-eventReactive(input$submit, {
   # outdat <- reactive({
     # req(input$file1)
@@ -49,38 +49,38 @@ shinyServer(function(input, output, session) {
     if(input$seq){
       processcmd <- paste0(processcmd, " --seq")
     }
-    
+
     if(input$scale>0){
       processcmd <- paste0(processcmd, " --scale ", input$scale)
     }
-    
+
     if(input$sci){
       processcmd <- paste0(processcmd, " --sci")
     }
-    
+
     out <- read.table(pipe(processcmd), header=F, stringsAsFactors=F)
-    
-    out$CAT <- paste(out$V3, out$V4, sep="")
-    
-    # Manually remove bins near chr20 centromere
-    # chr22 <- chr22[ which(chr22$BIN<260 | chr22$BIN>300),]
-    out$Category[out$CAT=="AC" | out$CAT=="TG"] <- "AT_CG"
-    out$Category[out$CAT=="AG" | out$CAT=="TC"] <- "AT_GC"
-    out$Category[out$CAT=="AT" | out$CAT=="TA"] <- "AT_TA"
-    out$Category[out$CAT=="GA" | out$CAT=="CT"] <- "GC_AT"
-    out$Category[out$CAT=="GC" | out$CAT=="CG"] <- "GC_CG"
-    out$Category[out$CAT=="GT" | out$CAT=="CA"] <- "GC_TA"
-    
+
+    # out$CAT <- paste(out$V3, out$V4, sep="")
+    #
+    # # Manually remove bins near chr20 centromere
+    # # chr22 <- chr22[ which(chr22$BIN<260 | chr22$BIN>300),]
+    # out$Category[out$CAT=="AC" | out$CAT=="TG"] <- "AT_CG"
+    # out$Category[out$CAT=="AG" | out$CAT=="TC"] <- "AT_GC"
+    # out$Category[out$CAT=="AT" | out$CAT=="TA"] <- "AT_TA"
+    # out$Category[out$CAT=="GA" | out$CAT=="CT"] <- "GC_AT"
+    # out$Category[out$CAT=="GC" | out$CAT=="CG"] <- "GC_CG"
+    # out$Category[out$CAT=="GT" | out$CAT=="CA"] <- "GC_TA"
+
     # system(processcmd)
     return(out)
   # })
   })
-  
+
   # data <- reactive({
   #   req(input$file1)
-  # 
+  #
   #   df <- read.table(inFile$datapath, sep="\t", header=F, stringsAsFactors=F)
-  #   
+  #
   #   return(df)
   # })
   # shinyjs::onclick("toggleDoc",
@@ -92,12 +92,12 @@ shinyServer(function(input, output, session) {
   # output$text <- renderText({
   #   outdat()
   # })
-  
+
   output$output <- DT::renderDataTable(outdat(), options = list(
     lengthMenu = list(c(5, 15, 25), c('5', '15', '25')),
     pageLength = 5
   ), server=TRUE)
-  
+
   output$downloadData <- downloadHandler(
     filename = "data_full.txt",
     # data = outdat(),
@@ -108,11 +108,11 @@ shinyServer(function(input, output, session) {
 
   output$muPlot <- renderPlot({
     plotdf <- outdat()
-    ggplot(plotdf, aes(x=V5, colour=Category, fill=Category))+
+    ggplot(plotdf, aes(x=MU, colour=CATEGORY, fill=CATEGORY))+
       geom_histogram()+
       scale_colour_brewer(palette="Dark2")+
       scale_fill_brewer(palette="Dark2")+
-      facet_wrap(~Category, scales="free")+
+      facet_wrap(~CATEGORY, scales="free")+
       theme_bw()
   })
 
