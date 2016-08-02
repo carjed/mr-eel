@@ -1,15 +1,15 @@
 ---
 layout: archive
 title: "Mr. Eel: Mutation Rate Annotation Utility"
-output:
-  html_document:
-    toc: true
+output: md_document
+  # html_document:
+  #   toc: true
 ---
 
 ## Overview
 **Please note that this web app is in beta, and is presently hosted on an Amazon EC2 micro instance with limited CPU and RAM. As such, problems may arise if multiple sessions are running concurrently. We apologize for any inconvenience.**
 
-Mr. Eel is an annotation utility for \[M\]utation \[R\]ate \[E\]stimation using \[E\]xtremely rare variants and \[L\]ocal sequence context. It is designed to quickly annotate single-nucleotide variants with their estimated mutation rate, using the method described in [citation here](#).
+Mr. Eel is an annotation utility for \[M\]utation \[R\]ate \[E\]stimation using \[E\]xtremely rare variants and \[L\]ocal sequence context. It is designed to quickly annotate single-nucleotide variants with their estimated mutation rate, using the method described in [citation pending](#).
 
 ### Formatting Input
 Files must be uploaded as a tab-delimited text file, starting with the following 4 columns:
