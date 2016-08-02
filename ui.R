@@ -39,6 +39,7 @@ shinyUI(fluidPage(
                  plotOutput("muPlot")),
         tabPanel("Help", 
                  includeMarkdown("/srv/shiny-server/mr-eel/mr-eel.md"))
+                 # includeMarkdown("mr-eel.md"))
       )
     )
 

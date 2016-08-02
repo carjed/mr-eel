@@ -15,7 +15,7 @@ library(ggplot2)
 library(Cairo)   # For nicer ggplot2 output when deployed on Linux
 library(DT)
 library(RColorBrewer)
-setwd("/var/www/jedidiahcarlson.com")
+# setwd("/var/www/jedidiahcarlson.com")
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
@@ -29,6 +29,13 @@ shinyServer(function(input, output, session) {
     names(out) <- c("filepath", "dat")
     return(out)
   })
+  
+  observeEvent(input$scale,{
+    if(input$scale>0){
+      shinyjs::show("scibox")    
+    }
+  })
+  
   
   outdat<-eventReactive(input$submit, {
   # outdat <- reactive({
