@@ -34,7 +34,8 @@ shinyUI(fluidPage(
       tabsetPanel(
         tabPanel("View output",
               DT::dataTableOutput("output"),
-              downloadButton('downloadData', 'Download Full Data')),
+              tags$hr(),
+              downloadButton('downloadData', 'Download Processed Data')),
         tabPanel("Plots", 
                  plotOutput("muPlot")),
         tabPanel("Help", 
