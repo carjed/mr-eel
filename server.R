@@ -43,28 +43,28 @@ shinyServer(function(input, output, session) {
     # req(input$file1)
     # inFile <- input$file1
     # filepath<- inFile$datapath
-        withProgress(message = 'Annotating input',
-                     detail = 'This may take a while...', value = 0, {
+    withProgress(message = 'Annotating input', 
+    detail = 'This may take a while...', value = 0, {
 
         
-    inpath <- infile()$filepath
-    adj <- input$adj
-    processcmd <- paste0("perl cgi/mr_eel.pl --in ", inpath, " --adj ", adj)
-                     
-    if(input$seq){
-      processcmd <- paste0(processcmd, " --seq")
-    }
-
-    if(input$scale>0){
-      processcmd <- paste0(processcmd, " --scale ", input$scale)
-    }
-
-    if(input$sci){
-      processcmd <- paste0(processcmd, " --sci")
-    }
-
-    out <- read.table(pipe(processcmd), header=T, stringsAsFactors=F)
-                     })
+      inpath <- infile()$filepath
+      adj <- input$adj
+      processcmd <- paste0("perl cgi/mr_eel.pl --in ", inpath, " --adj ", adj)
+                       
+      if(input$seq){
+        processcmd <- paste0(processcmd, " --seq")
+      }
+  
+      if(input$scale>0){
+        processcmd <- paste0(processcmd, " --scale ", input$scale)
+      }
+  
+      if(input$sci){
+        processcmd <- paste0(processcmd, " --sci")
+      }
+  
+      out <- read.table(pipe(processcmd), header=T, stringsAsFactors=F)
+    })
     # out$CAT <- paste(out$V3, out$V4, sep="")
     #
     # # Manually remove bins near chr20 centromere

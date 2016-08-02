@@ -5,6 +5,7 @@ library(Cairo)   # For nicer ggplot2 output when deployed on Linux
 library(DT)
 library(RColorBrewer)
 library(shinyjs)
+library(shinythemes)
 
 textInputRow<-function (inputId, label, value = "") {
   div(style="display:inline-block;",
@@ -14,6 +15,7 @@ textInputRow<-function (inputId, label, value = "") {
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
+  theme = shinytheme("flatly"),
   shinyjs::useShinyjs(),
   navbarPage("",
              tabPanel("App",
