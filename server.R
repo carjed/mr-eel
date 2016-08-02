@@ -102,8 +102,8 @@ shinyServer(function(input, output, session) {
     plotdf <- outdat()
     ggplot(plotdf, aes(x=V5, colour=Category, fill=Category))+
       geom_histogram()+
-      scale_colour_brewer(Palette="Dark2")+
-      scale_fill_brewer(Palette="Dark2")+
+      scale_colour_brewer(palette="Dark2")+
+      scale_fill_brewer(palette="Dark2")+
       facet_wrap(~Category, scales="free")+
       theme_bw()
   })
