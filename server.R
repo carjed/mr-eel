@@ -38,9 +38,21 @@ shinyServer(function(input, output, session) {
     inpath <- infile()$filepath
     adj <- input$adj
     processcmd <- paste0("perl cgi/mr_eel.pl --in ", inpath, " --adj ", adj)
+    if(input$seq){
+      processcmd <- paste0(processcmd, " --seq")
+    }
+    
+    if(input$scale>0){
+      processcmd <- paste0(processcmd, " --scale ", input$scale)
+    }
+    
+    if(input$sci){
+      processcmd <- paste0(processcmd, " --sci")
+    }
+    
     out <- read.table(pipe(processcmd), header=F, stringsAsFactors=F)
     
-    out$CAT <- paste(out$REF, out$ALT, sep="")
+    out$CAT <- paste(out$V3, out$V4, sep="")
     
     # Manually remove bins near chr20 centromere
     # chr22 <- chr22[ which(chr22$BIN<260 | chr22$BIN>300),]
