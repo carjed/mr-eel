@@ -15,7 +15,7 @@ library(ggplot2)
 library(Cairo)   # For nicer ggplot2 output when deployed on Linux
 library(DT)
 library(RColorBrewer)
-setwd("/var/www/jedidiahcarlson.com")
+# setwd("/var/www/jedidiahcarlson.com")
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
@@ -35,6 +35,7 @@ shinyServer(function(input, output, session) {
     # req(input$file1)
     # inFile <- input$file1
     # filepath<- inFile$datapath
+    setwd("/var/www/jedidiahcarlson.com")
     inpath <- infile()$filepath
     adj <- input$adj
     processcmd <- paste0("perl cgi/mr_eel.pl --in ", inpath, " --adj ", adj)
