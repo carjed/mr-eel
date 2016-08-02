@@ -15,46 +15,43 @@ textInputRow<-function (inputId, label, value = "") {
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
   shinyjs::useShinyjs(),
-  titlePanel("Mr. Eel"),
-
-  sidebarLayout(
-    sidebarPanel(
-      fileInput('file1', 'Choose file'),
-      tags$hr(),
-      selectInput("adj", label="Motif length", choices=list("7-mers"=3, "5-mers"=2), selected=3),
-      checkboxInput('seq', 'Include sequence motif?', FALSE),
-      
-      # textInputRow(inputId="scale", label="Scale rates to:", value = 0),
-      div(id="scaling", "Scale rates to:", textInputRow(inputId="scale", label="", value = 0), HTML(paste("x10", tags$sup(-8), sep = ""))),
-      shinyjs::hidden(div(id="scibox", checkboxInput('sci', 'Output in sci notation?', FALSE))),
-      actionButton("submit", "Submit")
-    ),
-
-    mainPanel(
-      tabsetPanel(
-        tabPanel("View output",
-              DT::dataTableOutput("output"),
-              tags$hr(),
-              downloadButton('downloadData', 'Download Processed Data')),
-        tabPanel("Plots", 
-                 plotOutput("muPlot")),
-        tabPanel("Help", 
-                 includeMarkdown("/srv/shiny-server/mr-eel/mr-eel.md"))
-                 # includeMarkdown("mr-eel.md"))
+  navbarPage("",
+    tabPanel("App",
+      sidebarLayout(
+        sidebarPanel(
+          fileInput('file1', 'Choose file'),
+          tags$hr(),
+          selectInput("adj", label="Motif length", 
+                      choices=list("7-mers"=3, "5-mers"=2), selected=3),
+          checkboxInput('seq', 'Include sequence motif?', FALSE),
+          
+          # textInputRow(inputId="scale", label="Scale rates to:", value = 0),
+          div(id="scaling", "Scale rates to:", 
+              textInputRow(inputId="scale", label="", value = 0), 
+              HTML(paste("x10", tags$sup(-8), 
+                         " (keep value as 0 to return relative rates)", sep = ""))),
+          shinyjs::hidden(div(id="scibox", 
+                          checkboxInput('sci', 'Output in scientific notation?', FALSE))),
+          actionButton("submit", "Submit")
+        ),
+    
+        mainPanel(
+          tabsetPanel(
+            tabPanel("View output",
+                  DT::dataTableOutput("output"),
+                  tags$hr(),
+                  downloadButton('downloadData', 'Download Processed Data')),
+            tabPanel("Plots", 
+                     plotOutput("muPlot"))
+          )
+        )
+    
       )
-    )
-
+  
+    ),
+    
+    tabPanel("Documentation", 
+             # includeMarkdown("/srv/shiny-server/mr-eel/mr-eel.md"))
+             includeMarkdown("mr-eel.md"))
   )
-
-  # fluidRow(
-  #   column(4,
-  #          useShinyjs(),
-  #          actionButton("toggleDoc", "Documentation"),
-  #          div(id="doc", includeMarkdown("mr-eel.md"))
-  #   ),
-  #   column(4,
-  #          includeHTML("include.html"),
-  #          plotOutput("muPlot")
-  #   )
-  # )
 ))
