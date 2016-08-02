@@ -25,7 +25,7 @@ shinyServer(function(input, output, session) {
     req(input$file1)
     inFile <- input$file1
     filepath <- inFile$datapath
-    dat <- read.table(filepath, header=T, stringsAsFactors=F)
+    dat <- read.table(filepath, header=F, stringsAsFactors=F)
     out <- c(filepath, dat)
     names(out) <- c("filepath", "dat")
     return(out)
