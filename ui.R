@@ -38,10 +38,10 @@ shinyUI(fluidPage(
           # bsCollapsePanel("Browse Motifs", open=NULL,
               DT::dataTableOutput("output"),
             # ),
-          downloadButton('downloadData', 'Download Full Data'),
-          tabPanel("Help", includeMarkdown("mr-eel.md"))
+          downloadButton('downloadData', 'Download Full Data')
           # )
-        )
+        ),
+        tabPanel("Help", includeMarkdown("mr-eel.md"))
       )
     )
 
