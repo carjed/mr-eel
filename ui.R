@@ -33,6 +33,7 @@ shinyUI(fluidPage(
           shinyjs::hidden(div(id="scibox",
                           checkboxInput('sci', 'Output in scientific notation?', FALSE))),
           actionButton("submit", "Submit")
+          bsAlert("alert")
         ),
 
         mainPanel(

@@ -28,6 +28,9 @@ shinyServer(function(input, output, session) {
     dat <- read.table(filepath, header=F, stringsAsFactors=F)
     out <- c(filepath, dat)
     names(out) <- c("filepath", "dat")
+    createAlert(session, "alert", "exampleAlert", title = "Oops",
+                content = filepath, append = FALSE)
+    
     return(out)
   })
 
