@@ -54,7 +54,7 @@ If a value is entered in the **"Scale rates to:"** field, relative mutation rate
 Mr. Eel takes anywhere from 30 seconds to 15 minutes to run. Since the script reads each chromosome into memory sequentially, speed is primarily determined by the number of unique chromosomes in the input, not the total number of positions (e.g., 10,000 variants on a single chromosome will run faster than 100 variants across all 22 chromosomes). To manage bandwidth, input file size is restricted to 4Mb. If your data exceeds 4Mb, please download the [command line annotation script](/cgi/download.php?dir=assets&file=mr_eel.pl).
 
 ### Command line usage
-**The command line script is available to [download](/cgi/download.php?dir=assets&file=mr_eel.pl), along with the [7-mer rate table](/cgi/download.php?dir=assets&file=ERV_7bp_rates.txt); the `download_ref.pl` script described below is under construction. When using the command line utility, you _must_ specify the `--rates` and `--ref` options.**
+**The command line script is available to [download](/cgi/download.php?dir=cgi&file=mr_eel.pl), along with the [7-mer rate table](/cgi/download.php?dir=assets&file=ERV_7bp_rates.txt); the `download_ref.pl` script described below is under construction. When using the command line utility, you _must_ specify the `--rates` and `--ref` options.**
 Usage instructions for the command line utility can be viewed with `perl mr_eel.pl --help`.
 Note that the download **does not** contain a reference genome. A helper script, `download_ref.pl` is included to download the human_g1k_v37.fasta file used by the web app. If you already have a reference genome on your local machine, you may specify the location with the `--ref /path/to/reference.fasta` argument.
 
