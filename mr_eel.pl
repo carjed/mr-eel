@@ -16,21 +16,19 @@ use Pod::Usage;
 use File::Basename;
 use List::Util qw(first max maxstr min minstr reduce shuffle sum);
 
-# my $parentdir="$FindBin::Bin/../";
-my $fastadir="/usr/local/share/data";
-my $assetdir="/var/www/jedidiahcarlson.com/assets";
+my $parentdir="$FindBin::Bin/../";
 
 my $help=0;
 my $man=0;
 # my $chr;
 my $adj=3;
-my $f_fasta = "$fastadir/human_g1k_v37.fasta";
-my $f_positions = "$assetdir/test_sites.txt";
+my $f_fasta = "$parentdir/assets/human_g1k_v37.fasta";
+my $f_positions = "$parentdir/assets/test_sites.txt";
 my $seqflag;
 my $scale=0;
 my $sciflag;
 my $subseq1 = $adj*2+1;
-my $rates = "$assetdir/ERV_${subseq1}bp_rates.txt";
+my $rates = "$parentdir/assets/ERV_${subseq1}bp_rates.txt";
 
 GetOptions (
 # 'chr=i'=> \$chr,
@@ -94,7 +92,19 @@ my $prevchr=0;
 my $seq;
 my $altseq;
 
-# readline($positions);
+# my $firstline = readline($positions);
+# chomp($firstline);
+# $firstline =~ tr/\x{d}\x{a}//d;
+# my @line=split(/\t/, $linestr);
+# my $sitechr=$line[0];
+# if($sitechr =~ /^C/){
+#   print "$firstline\tCATEGORY\tMU";
+#   if($seq){
+#     print "\tMOTIF\n";
+#   }
+#   next;
+# };
+
 open my $positions, '<', $f_positions or die "can't open $f_positions: $!";
 while(<$positions>){
 	# print "$_\n";
@@ -103,7 +113,30 @@ while(<$positions>){
   $linestr =~ tr/\x{d}\x{a}//d;
 	my @line=split(/\t/, $linestr);
 	my $sitechr=$line[0];
-  next if $sitechr =~ /^C/;
+  if($.==1 && $sitechr =~ /^C/){
+    if($seqflag){
+      print "$linestr\tCATEGORY\tMU\tMOTIF\n";
+    } else {
+      print "$linestr\tCATEGORY\tMU\n";
+    }
+    next;
+  } elsif($.==1 && $sitechr !~ /^C/){
+    print "CHR\tPOS\tREF\tALT\t";
+    if($#line>3){
+      for my $i(4..($#line-1)){
+        my $colnum=$i+1;
+        print "V$colnum\t";
+      }
+      my $lastcol = $#line+1;
+      print "V$lastcol\t";
+    }
+    print "CATEGORY\tMU";
+    if($seqflag){
+      print "\tMOTIF\n";
+    } else {
+      print "\n";
+    }
+  }
 
 	my $pos=$line[1];
   my $ref=$line[2];
@@ -137,9 +170,9 @@ while(<$positions>){
 		# print OUT "$chr\t$i\t$hash{$sequence}\n";
 		if($seqflag){
 			# print OUT "$linestr\t$sequence\t$hash{$sequence}[$catind]\t\n";
-      print "$linestr\t$sequence\t$mu\n";
+      print "$linestr\t$categ\t$mu\t$sequence\n";
 		}	else {
-      print "$linestr\t$mu\n";
+      print "$linestr\t$categ\t$mu\n";
 		}
 	}
 
