@@ -16,19 +16,21 @@ use Pod::Usage;
 use File::Basename;
 use List::Util qw(first max maxstr min minstr reduce shuffle sum);
 
-my $parentdir="$FindBin::Bin/../";
+# my $parentdir="$FindBin::Bin/../";
+my $fastadir="/usr/local/share/data";
+my $assetdir="/var/www/jedidiahcarlson.com/assets";
 
 my $help=0;
 my $man=0;
 # my $chr;
 my $adj=3;
-my $f_fasta = "$parentdir/assets/human_g1k_v37.fasta";
-my $f_positions = "$parentdir/assets/test_sites.txt";
+my $f_fasta = "$fastadir/human_g1k_v37.fasta";
+my $f_positions = "$assetdir/test_sites.txt";
 my $seqflag;
 my $scale=0;
 my $sciflag;
 my $subseq1 = $adj*2+1;
-my $rates = "$parentdir/assets/ERV_${subseq1}bp_rates.txt";
+my $rates = "$assetdir/ERV_${subseq1}bp_rates.txt";
 
 GetOptions (
 # 'chr=i'=> \$chr,
