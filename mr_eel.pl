@@ -90,7 +90,7 @@ while (<$rateFH>){
 close $rates;
 
 my @sites;
-my $prevchr=0;
+my $prevchr = '';
 my $seq;
 my $altseq;
 
@@ -149,8 +149,8 @@ while(<$positions>){
 	my $catind=$cathash{$categ};
   # print "$categ\t$catind\n";
 
-	if($sitechr!=$prevchr){
-		$seq=&getRef($sitechr);
+	if ($sitechr ne $prevchr) {
+      $seq=&getRef($sitechr);
 	}
 
 	my $base=substr($seq, $pos, 1);
@@ -167,7 +167,10 @@ while(<$positions>){
 			$sequence = $altlocalseq . '(' . $localseq . ')';
 		}
 
-    my $mu = $factor*$hash{$sequence}[$catind];
+      my $mu = 'NA';
+      if (exists $hash{$sequence}) { # Ref sequence may contain additional codes such as 'R'. 
+         $mu = $factor*$hash{$sequence}[$catind];
+      }
 
 		# print OUT "$chr\t$i\t$hash{$sequence}\n";
 		if($seqflag){
@@ -216,11 +219,19 @@ sub getCat{
 sub getRef{
 	my $chr=shift;
 	my $nextchr;
-	if ($chr<22) {
-		$nextchr=$chr+1;
-	} elsif ($chr==22) {
-		$nextchr="X";
-	}
+	my $hasprefix=($chr =~ /^chr/);
+
+   $chr =~ s/chr//g;
+   if ($chr<22) {
+      $nextchr=$chr+1;
+   } elsif ($chr==22) {
+      $nextchr="X";
+   }
+
+   if ($hasprefix) {
+      $chr = "chr" . $chr;
+      $nextchr = "chr" . $nextchr;
+   }
 
 	open my $fasta, '<', $f_fasta or die "can't open $f_fasta: $!";
 	# print "Getting reference sequence for chromosome $chr...\n";
